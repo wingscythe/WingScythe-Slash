@@ -15,6 +15,7 @@ public class idleScript : StateMachineBehaviour
     {
        if(PlayerController.Instance.isAttacking){
            PlayerController.Instance.animator.Play("punch1_1");
+           PlayerController.Instance.gameObject.GetComponent<PlayerController>().Dash();
        }
     }
 

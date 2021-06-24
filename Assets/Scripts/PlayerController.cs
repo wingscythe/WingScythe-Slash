@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public bool isAttacking = false;
     public static PlayerController Instance;
     public bool facingRight = false;
+    public GameObject left = null;
+    public GameObject right = null;
+    public float distance = 0;
 
     private void Awake(){
         Instance = this;
@@ -36,8 +39,25 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
         velocity = speed * moveInput;
-        rb.velocity = new Vector2(velocity,0);
+        rb.velocity = new Vector2(speed*velocity,0);
         animator.SetFloat("Velocity", velocity);
+        
+        right = null;
+        left = null;
+        distance = 0;
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(.35f,0f,0f), Vector2.left, 5f);
+        if (hitLeft.collider != null)
+        {
+            left = hitLeft.collider.transform.parent.gameObject;
+            distance = hitLeft.distance;
+            Debug.DrawRay(transform.position - new Vector3(.35f,0f,0f), Vector2.left * hitLeft.distance, Color.red);
+        }
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position - new Vector3(-.35f,0f,0f), Vector2.right, 5f);
+        if (hitRight.collider != null)
+        {
+            right = hitRight.collider.transform.parent.gameObject;
+            Debug.DrawRay(transform.position - new Vector3(-.35f,0f,0f), Vector2.right * hitRight.distance, Color.red);
+        }
     }
 
     void Attack(){
@@ -54,5 +74,11 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    public void Dash(){
+        if(left && !facingRight && distance > .2f){
+            this.transform.Translate(Vector3.left * distance - new Vector3(.1f,0f,0f));  
+        }
     }
 }
