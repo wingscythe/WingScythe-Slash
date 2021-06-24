@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     public void Dash(){
         if(left && !facingRight && distance > .2f){
-            this.transform.Translate(Vector3.left * distance - new Vector3(.1f,0f,0f));  
+            this.transform.Translate(Vector3.left * distance - new Vector3(.14f,0f,0f));  
         }
     }
 }
