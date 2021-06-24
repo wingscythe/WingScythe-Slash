@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     public GameObject right = null;
     public float distance = 0;
 
+    //Attacks
+    public int attack = 0;
+
     private void Awake(){
         Instance = this;
     }
@@ -44,21 +47,22 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(speed*velocity,0);
         animator.SetFloat("Velocity", velocity);
         
+        int layerMask = 1 << 9;
         right = null;
         left = null;
         distance = 0;
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(.4f,0f,0f), Vector2.left, 5f);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 5f, layerMask);
         if (hitLeft.collider != null)
         {
             left = hitLeft.collider.transform.parent.gameObject;
             distance = hitLeft.distance;
-            Debug.DrawRay(transform.position - new Vector3(.4f,0f,0f), Vector2.left * hitLeft.distance, Color.red);
+            Debug.DrawRay(transform.position, Vector2.left * hitLeft.distance, Color.red);
         }
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position - new Vector3(-.4f,0f,0f), Vector2.right, 5f);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, 5f, layerMask);
         if (hitRight.collider != null)
         {
             right = hitRight.collider.transform.parent.gameObject;
-            Debug.DrawRay(transform.position - new Vector3(-.4f,0f,0f), Vector2.right * hitRight.distance, Color.blue);
+            Debug.DrawRay(transform.position, Vector2.right * hitRight.distance, Color.blue);
         }
     }
 
@@ -80,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
     public void Dash(){
         if(left && !facingRight && distance > .2f){
-            this.transform.Translate(Vector3.left * distance - new Vector3(.19f,0f,0f));  
+            this.transform.Translate(Vector3.left * distance);  
         }
     }
 }
