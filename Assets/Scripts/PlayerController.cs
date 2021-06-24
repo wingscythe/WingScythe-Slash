@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
     private float moveInput;
+    private float lastInput;
     private float velocity;
     [SerializeField]
     private float speed = 1.0f;
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Attack();
+        lastInput = moveInput;
         moveInput = Input.GetAxis("Horizontal");
         if (moveInput != 0) {
             animator.SetBool("isWalking", true);
@@ -45,18 +47,18 @@ public class PlayerController : MonoBehaviour
         right = null;
         left = null;
         distance = 0;
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(.35f,0f,0f), Vector2.left, 5f);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(.4f,0f,0f), Vector2.left, 5f);
         if (hitLeft.collider != null)
         {
             left = hitLeft.collider.transform.parent.gameObject;
             distance = hitLeft.distance;
-            Debug.DrawRay(transform.position - new Vector3(.35f,0f,0f), Vector2.left * hitLeft.distance, Color.red);
+            Debug.DrawRay(transform.position - new Vector3(.4f,0f,0f), Vector2.left * hitLeft.distance, Color.red);
         }
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position - new Vector3(-.35f,0f,0f), Vector2.right, 5f);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position - new Vector3(-.4f,0f,0f), Vector2.right, 5f);
         if (hitRight.collider != null)
         {
             right = hitRight.collider.transform.parent.gameObject;
-            Debug.DrawRay(transform.position - new Vector3(-.35f,0f,0f), Vector2.right * hitRight.distance, Color.red);
+            Debug.DrawRay(transform.position - new Vector3(-.4f,0f,0f), Vector2.right * hitRight.distance, Color.blue);
         }
     }
 
@@ -78,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
     public void Dash(){
         if(left && !facingRight && distance > .2f){
-            this.transform.Translate(Vector3.left * distance - new Vector3(.14f,0f,0f));  
+            this.transform.Translate(Vector3.left * distance - new Vector3(.19f,0f,0f));  
         }
     }
 }
