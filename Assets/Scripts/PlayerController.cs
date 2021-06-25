@@ -64,6 +64,11 @@ public class PlayerController : MonoBehaviour
             right = hitRight.collider.transform.parent.gameObject;
             Debug.DrawRay(transform.position, Vector2.right * hitRight.distance, Color.blue);
         }
+        //Attack Handler
+        if(isAttacking && attack == 1){
+            //Punch 1.1
+            //Activate hitbox
+        }
     }
 
     void Attack(){
