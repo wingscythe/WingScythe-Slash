@@ -20,9 +20,6 @@ public class PlayerController : MonoBehaviour
     public GameObject right = null;
     public float distance = 0;
 
-    //Attacks
-    public int attack = 0;
-
     private void Awake(){
         Instance = this;
     }
@@ -62,6 +59,7 @@ public class PlayerController : MonoBehaviour
         if (hitRight.collider != null)
         {
             right = hitRight.collider.transform.parent.gameObject;
+            distance = hitRight.distance;
             Debug.DrawRay(transform.position, Vector2.right * hitRight.distance, Color.blue);
         }
     }
@@ -85,6 +83,8 @@ public class PlayerController : MonoBehaviour
     public void Dash(){
         if(left && !facingRight && distance > .2f){
             this.transform.Translate(Vector3.left * distance);  
+        }else if(right && facingRight && distance > .2f){
+            this.transform.Translate(Vector3.right * distance);  
         }
     }
 }
