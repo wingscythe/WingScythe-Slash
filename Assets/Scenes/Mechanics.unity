@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 250280802}
   - component: {fileID: 250280805}
   - component: {fileID: 250280803}
+  - component: {fileID: 250280804}
   m_Layer: 9
   m_Name: stick
   m_TagString: Untagged
@@ -304,6 +305,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0.017720103, y: 0.3366816}
   m_Size: {x: 0.7126411, y: 1.6733642}
   m_Direction: 0
+--- !u!95 &250280804
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250280801}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c5c0fc424f34b1e489a4ba655eb1cc87, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &250280805
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -796,7 +816,6 @@ MonoBehaviour:
   left: {fileID: 0}
   right: {fileID: 0}
   distance: 0
-  attack: 0
 --- !u!50 &1233717328
 Rigidbody2D:
   serializedVersion: 4
