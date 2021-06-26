@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private float lastInput;
     private float velocity;
     [SerializeField]
-    private float speed = 1.0f;
+    private float speed = 10.0f;
     public bool isAttacking = false;
     public static PlayerController Instance;
     public bool facingRight = false;
@@ -29,33 +29,53 @@ public class PlayerController : MonoBehaviour
     {
         Attack();
         lastInput = moveInput;
-        moveInput = Input.GetAxis("Horizontal");
-        if (moveInput != 0) {
-            animator.SetBool("isWalking", true);
-        } else {
-            animator.SetBool("isWalking", false);
+        if (Input.touchCount > 0){
+            var touch = Input.GetTouch(0);
+            if(touch.position.x < Screen.width/2){
+                //Left click
+                moveInput = -1;
+            }else if(touch.position.x >= Screen.width/2){
+                //Right click
+                moveInput = 1;
+            }
+        }else{
+            moveInput = 0;
         }
+
         if (!facingRight && moveInput > 0) {
             Flip();
         } else if (facingRight && moveInput < 0) {
             Flip();
         }
-        velocity = speed * moveInput;
-        rb.velocity = new Vector2(speed*velocity,0);
-        animator.SetFloat("Velocity", velocity);
-        
+
+        if(!isAttacking){
+            if (moveInput != 0 && !isAttacking) {
+                animator.SetBool("isWalking", true);
+            } else {
+                animator.SetBool("isWalking", false);
+            }
+
+            velocity = speed * moveInput;
+            rb.velocity = new Vector2(velocity,0);
+            animator.SetFloat("Velocity", velocity);
+        }else{
+            velocity = 0;
+            rb.velocity = new Vector2(velocity,0);
+            animator.SetFloat("Velocity", velocity);
+        }
+
         int layerMask = 1 << 9;
         right = null;
         left = null;
         distance = 0;
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 5f, layerMask);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(0.5f,0,0), Vector2.left, 5f, layerMask);
         if (hitLeft.collider != null)
         {
             left = hitLeft.collider.transform.parent.gameObject;
             distance = hitLeft.distance;
             Debug.DrawRay(transform.position, Vector2.left * hitLeft.distance, Color.red);
         }
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, 5f, layerMask);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position + new Vector3(0.5f,0,0), Vector2.right, 5f, layerMask);
         if (hitRight.collider != null)
         {
             right = hitRight.collider.transform.parent.gameObject;
@@ -65,7 +85,9 @@ public class PlayerController : MonoBehaviour
     }
 
     void Attack(){
-        if(Input.GetKeyDown(KeyCode.X) && !isAttacking){
+        if(left && !facingRight && !isAttacking){
+            isAttacking = true;
+        }else if(right && facingRight && !isAttacking){
             isAttacking = true;
         }
     }
@@ -82,9 +104,13 @@ public class PlayerController : MonoBehaviour
 
     public void Dash(){
         if(left && !facingRight && distance > .2f){
-            this.transform.Translate(Vector3.left * distance);  
+            if(left != right){
+                this.transform.position = left.transform.position + new Vector3(0.5f, 0, 0);  
+            }
         }else if(right && facingRight && distance > .2f){
-            this.transform.Translate(Vector3.right * distance);  
+            if(left != right){
+                this.transform.position = right.transform.position - new Vector3(0.5f, 0, 0); 
+            }
         }
     }
 }
