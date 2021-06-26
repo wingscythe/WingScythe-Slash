@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerStat : MonoBehaviour
 {
     public int maxHealth = 10;
-    public int currentHealth {get; private set;}
-    public Stat Attack;
+    public int currentHealth { get; private set; }
+    public Stat Strength;
     public Stat speed;
-    void Awake() 
+    public Stat AtkSpeed;
+    public Stat Health;
+    void Awake()
     {
         currentHealth = maxHealth;
     }
@@ -20,5 +22,25 @@ public class PlayerStat : MonoBehaviour
         {
             // death
         }
+    }
+    //setting/changing stats
+    public void setSpeed(int _speed)
+    {
+        speed.SetValue(_speed);   
+    }
+
+    public void setHealth(int _health)
+    {
+        Health.SetValue(_health);
+    }
+
+    public void setAtkSpeed(int _atkspeed)
+    {
+        AtkSpeed.SetValue(_atkspeed);
+    }
+
+    public void setStrength(int _strength)
+    {
+        Strength.SetValue(_strength);
     }
 }
