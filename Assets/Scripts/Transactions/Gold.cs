@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gold
+public class Gold : MonoBehaviour
 {
     [SerializeField]
     private int value;
