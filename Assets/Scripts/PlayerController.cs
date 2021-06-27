@@ -44,8 +44,10 @@ public class PlayerController : MonoBehaviour
 
         if (!facingRight && moveInput > 0) {
             Flip();
+            isAttacking = false;
         } else if (facingRight && moveInput < 0) {
             Flip();
+            isAttacking = false;
         }
 
         if(!isAttacking){

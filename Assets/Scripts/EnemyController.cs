@@ -7,7 +7,11 @@ public class EnemyController : MonoBehaviour
 
     [Header("General")]
     public float health = 1;
+    public Gold gold;
 
+    void Start(){
+        gold = GetComponent<Gold>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -15,16 +19,47 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    void headHit(float damage){
+    public void headHit(float damage){
+        Debug.Log("HeadHit");
         //Play head hit animation
         
         //Decrease health
         takeDamage(damage);
     }
 
-    void takeDamage(float damage){
+    public void legHit(float damage){
+        Debug.Log("LegHit");
+        //Play head hit animation
+        
+        //Decrease health
+        takeDamage(damage);
+    }
+
+    public void bodyHit(float damage){
+        Debug.Log("BodyHit");
+        //Play head hit animation
+        
+        //Decrease health
+        takeDamage(damage);
+    }
+
+    public void takeDamage(float damage){
         health-=damage;
         //check if dead
 
+        if(health <= 0){
+            Debug.Log("Enemy Killed");
+            //Remove collider
+            
+            //Play death animation, then delete gameObject
+
+            //Edit this with death animation length
+            Destroy(gameObject);
+
+            //Burst into coins
+
+            //Add coins to player
+            PlayerGold.Instance.addGold(gold);
+        }
     }
 }
