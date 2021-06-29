@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed = 10.0f;
     public bool isAttacking = false;
+    public bool isBlocking = false;
     public static PlayerController Instance;
     public bool facingRight = false;
     public GameObject left = null;
@@ -31,17 +32,27 @@ public class PlayerController : MonoBehaviour
         lastInput = moveInput;
         if (Input.touchCount > 0){
             var touch = Input.GetTouch(0);
-            if(touch.position.x < Screen.width/2){
+            if (touch.position.x < Screen.width / 2) {
                 //Left click
                 moveInput = -1;
-            }else if(touch.position.x >= Screen.width/2){
+            }
+            else { 
                 //Right click
                 moveInput = 1;
             }
+            if (touch.position.y > Screen.height / 2) {
+                //upper click
+                isBlocking = true;
+                isAttacking = false;
+                Debug.Log("Yeah");
+            }
+            else {
+                isBlocking = false;
+            }
         }else{
+            isBlocking = false;
             moveInput = 0;
         }
-
         if (!facingRight && moveInput > 0) {
             Flip();
             isAttacking = false;
@@ -49,9 +60,8 @@ public class PlayerController : MonoBehaviour
             Flip();
             isAttacking = false;
         }
-
-        if(!isAttacking){
-            if (moveInput != 0 && !isAttacking) {
+        if(!isAttacking && !isBlocking){
+            if (moveInput != 0) {
                 animator.SetBool("isWalking", true);
             } else {
                 animator.SetBool("isWalking", false);
