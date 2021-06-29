@@ -8,9 +8,11 @@ public class EnemyController : MonoBehaviour
     [Header("General")]
     public float health = 1;
     public Gold gold;
+    public Animator animator; 
 
     void Start(){
         gold = GetComponent<Gold>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -22,7 +24,8 @@ public class EnemyController : MonoBehaviour
     public void headHit(float damage){
         Debug.Log("HeadHit");
         //Play head hit animation
-        
+        animator.Play("headhit");
+
         //Decrease health
         takeDamage(damage);
     }
