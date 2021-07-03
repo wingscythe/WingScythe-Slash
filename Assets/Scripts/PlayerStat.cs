@@ -29,7 +29,7 @@ public class PlayerStat : MonoBehaviour
     }
     public int getHealth()
     {
-        return Health.getValue();
+        return currentHealth;
     }
     public int getAtkSpeed()
     {
