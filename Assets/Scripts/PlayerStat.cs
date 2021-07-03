@@ -14,7 +14,6 @@ public class PlayerStat : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
-
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -23,22 +22,37 @@ public class PlayerStat : MonoBehaviour
             // death
         }
     }
+
+    public int getSpeed()
+    {
+        return Speed.getValue();
+    }
+    public int getHealth()
+    {
+        return Health.getValue();
+    }
+    public int getAtkSpeed()
+    {
+        return AtkSpeed.getValue();
+    }
+    public int getStrength()
+    {
+        return Strength.getValue();
+
+    }
     //setting/changing stats
     public int setSpeed(int _speed)
     {
-        return Speed.SetValue(_speed);   
+        return Speed.SetValue(_speed);
     }
-
     public int setHealth(int _health)
     {
         return Health.SetValue(_health);
     }
-
     public int setAtkSpeed(int _atkspeed)
     {
         return AtkSpeed.SetValue(_atkspeed);
     }
-
     public int setStrength(int _strength)
     {
         return Strength.SetValue(_strength);
