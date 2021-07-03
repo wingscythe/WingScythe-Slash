@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public GameObject left = null;
     public GameObject right = null;
     public float distance = 0;
+    public float distancer = 0;
 
     private void Awake(){
         Instance = this;
@@ -55,10 +56,10 @@ public class PlayerController : MonoBehaviour
         }
         if (!facingRight && moveInput > 0) {
             Flip();
-            isAttacking = false;
+            Reset();
         } else if (facingRight && moveInput < 0) {
             Flip();
-            isAttacking = false;
+            Reset();
         }
         if(!isAttacking && !isBlocking){
             if (moveInput != 0) {
@@ -80,6 +81,7 @@ public class PlayerController : MonoBehaviour
         right = null;
         left = null;
         distance = 0;
+        distancer = 0;
         RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(0.5f,0,0), Vector2.left, 5f, layerMask);
         if (hitLeft.collider != null)
         {
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
         if (hitRight.collider != null)
         {
             right = hitRight.collider.transform.parent.gameObject;
-            distance = hitRight.distance;
+            distancer = hitRight.distance;
             Debug.DrawRay(transform.position, Vector2.right * hitRight.distance, Color.blue);
         }
     }
@@ -118,11 +120,17 @@ public class PlayerController : MonoBehaviour
         if(left && !facingRight && distance > .2f){
             if(left != right){
                 this.transform.position = left.transform.position + new Vector3(0.5f, 0, 0);  
+                Debug.Log(left.transform.position);
             }
-        }else if(right && facingRight && distance > .2f){
+        }else if(right && facingRight && distancer > .2f){
             if(left != right){
                 this.transform.position = right.transform.position - new Vector3(0.5f, 0, 0); 
             }
         }
+    }
+
+    public void Reset(){
+        animator.Play("Idle");
+        isAttacking = false;
     }
 }

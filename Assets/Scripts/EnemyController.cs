@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
 
     void Start(){
         gold = GetComponent<Gold>();
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();  
     }
 
     // Update is called once per frame
@@ -52,17 +52,21 @@ public class EnemyController : MonoBehaviour
 
         if(health <= 0){
             Debug.Log("Enemy Killed");
+
+            //Reset player combo
+            PlayerController.Instance.Reset();
+
             //Remove collider
             
             //Play death animation, then delete gameObject
-
-            //Edit this with death animation length
-            Destroy(gameObject);
 
             //Burst into coins
 
             //Add coins to player
             PlayerGold.Instance.addGold(gold);
+
+            //Edit this with death animation length
+            Destroy(gameObject);
         }
     }
 }
