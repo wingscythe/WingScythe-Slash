@@ -9,13 +9,19 @@ public class PlayerGold : MonoBehaviour
     [SerializeField]
     private int value = 0;
 
-    private void Awake(){
+    private void Awake()
+    {
         Instance = this;
     }
 
     public void addGold(Gold coin)
     {
         value += coin.getValue();
+    }
+
+    public void minusGold(Gold coin)
+    {
+        value -= coin.getValue();
     }
 
     public int showGold()
