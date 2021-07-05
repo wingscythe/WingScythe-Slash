@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitboxManager : MonoBehaviour
+public class HeadHitboxManager : MonoBehaviour
 {
      // Used for organization
      public PolygonCollider2D[] colliders;
@@ -20,7 +20,10 @@ public class HitboxManager : MonoBehaviour
  
      void OnTriggerEnter2D(Collider2D col)
      {
-         Debug.Log("Collider hit something!");
+        EnemyController controller = col.gameObject.GetComponentInParent<EnemyController>();
+        if(controller){
+            controller.headHit(1.0f);
+        }
      }
  
      public void setHitBox(int val)

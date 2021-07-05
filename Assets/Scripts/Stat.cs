@@ -8,8 +8,13 @@ public class Stat
     [SerializeField]
     private int baseValue;
 
-    public int getValue() 
+    public int getValue()
     {
+        return this.baseValue;
+    }
+    public int SetValue(int n)
+    {
+        this.baseValue = n;
         return this.baseValue;
     }
 }

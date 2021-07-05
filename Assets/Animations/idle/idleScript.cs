@@ -13,7 +13,10 @@ public class idleScript : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       if(PlayerController.Instance.isAttacking){
+        if (PlayerController.Instance.isBlocking){
+            PlayerController.Instance.animator.Play("Blocking");
+        }
+        else if(PlayerController.Instance.isAttacking){
            PlayerController.Instance.animator.Play("punch1_1");
            PlayerController.Instance.gameObject.GetComponent<PlayerController>().Dash();
        }
@@ -23,6 +26,7 @@ public class idleScript : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        PlayerController.Instance.isAttacking = false;
+       PlayerController.Instance.isBlocking = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

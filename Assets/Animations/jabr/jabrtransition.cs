@@ -7,7 +7,9 @@ public class jabrtransition : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       PlayerController.Instance.isAttacking = false;
+       if(PlayerController.Instance.isAttacking){
+           PlayerController.Instance.animator.Play("jabl");
+       }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
