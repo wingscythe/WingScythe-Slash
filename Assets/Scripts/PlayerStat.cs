@@ -31,7 +31,7 @@ public class PlayerStat : MonoBehaviour
     {
         return currentHealth;
     }
-    public int getAtkSpeed()
+    public double getAtkSpeed()
     {
         return AtkSpeed.getValue();
     }
@@ -49,7 +49,7 @@ public class PlayerStat : MonoBehaviour
     {
         return Health.SetValue(_health);
     }
-    public int setAtkSpeed(int _atkspeed)
+    public double setAtkSpeed(int _atkspeed)
     {
         return AtkSpeed.SetValue(_atkspeed);
     }

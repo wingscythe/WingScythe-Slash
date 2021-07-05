@@ -13,7 +13,7 @@ public class PlayerStatsDisplay : MonoBehaviour
         stats = GameObject.FindWithTag("Player").GetComponent<PlayerStat>();
         statsDisplay = gameObject.GetComponent<Text>();
     }
-
+    //Updating Text
     void Update()
     {
         stats.Strength.SetValue(10);

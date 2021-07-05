@@ -14,11 +14,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed = 10.0f;
     public bool isAttacking = false;
+    public bool isBlocking = false;
     public static PlayerController Instance;
     public bool facingRight = false;
     public GameObject left = null;
     public GameObject right = null;
     public float distance = 0;
+    public float distancer = 0;
 
     private void Awake(){
         Instance = this;
@@ -31,27 +33,36 @@ public class PlayerController : MonoBehaviour
         lastInput = moveInput;
         if (Input.touchCount > 0){
             var touch = Input.GetTouch(0);
-            if(touch.position.x < Screen.width/2){
+            if (touch.position.x < Screen.width / 2) {
                 //Left click
                 moveInput = -1;
-            }else if(touch.position.x >= Screen.width/2){
+            }
+            else { 
                 //Right click
                 moveInput = 1;
             }
+            if (touch.position.y > Screen.height / 2) {
+                //upper click
+                isBlocking = true;
+                isAttacking = false;
+                Debug.Log("Yeah");
+            }
+            else {
+                isBlocking = false;
+            }
         }else{
+            isBlocking = false;
             moveInput = 0;
         }
-
         if (!facingRight && moveInput > 0) {
             Flip();
-            isAttacking = false;
+            Reset();
         } else if (facingRight && moveInput < 0) {
             Flip();
-            isAttacking = false;
+            Reset();
         }
-
-        if(!isAttacking){
-            if (moveInput != 0 && !isAttacking) {
+        if(!isAttacking && !isBlocking){
+            if (moveInput != 0) {
                 animator.SetBool("isWalking", true);
             } else {
                 animator.SetBool("isWalking", false);
@@ -70,6 +81,7 @@ public class PlayerController : MonoBehaviour
         right = null;
         left = null;
         distance = 0;
+        distancer = 0;
         RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(0.5f,0,0), Vector2.left, 5f, layerMask);
         if (hitLeft.collider != null)
         {
@@ -81,7 +93,7 @@ public class PlayerController : MonoBehaviour
         if (hitRight.collider != null)
         {
             right = hitRight.collider.transform.parent.gameObject;
-            distance = hitRight.distance;
+            distancer = hitRight.distance;
             Debug.DrawRay(transform.position, Vector2.right * hitRight.distance, Color.blue);
         }
     }
@@ -108,11 +120,17 @@ public class PlayerController : MonoBehaviour
         if(left && !facingRight && distance > .2f){
             if(left != right){
                 this.transform.position = left.transform.position + new Vector3(0.5f, 0, 0);  
+                Debug.Log(left.transform.position);
             }
-        }else if(right && facingRight && distance > .2f){
+        }else if(right && facingRight && distancer > .2f){
             if(left != right){
                 this.transform.position = right.transform.position - new Vector3(0.5f, 0, 0); 
             }
         }
+    }
+
+    public void Reset(){
+        animator.Play("Idle");
+        isAttacking = false;
     }
 }

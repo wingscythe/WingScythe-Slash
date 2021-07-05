@@ -12,7 +12,8 @@ public class Stat
     {
         return this.baseValue;
     }
-    public int SetValue(int n) { 
+    public int SetValue(int n)
+    {
         this.baseValue = n;
         return this.baseValue;
     }
