@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class MenuOpener : MonoBehaviour
 {
-    public GameObject startButton;
+    public List<GameObject> UIElements = new List<GameObject>();
     public GameObject startFadeText;
 
     public void OpenMenu()
     {
         startFadeText.SetActive(false);
-        startButton.SetActive(true);
+        foreach (GameObject item in UIElements)
+        {
+            item.SetActive(true);
+        }
     }
 }
