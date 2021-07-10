@@ -6,8 +6,9 @@ public class ShopManager : MonoBehaviour
 {
     private int cost;
 
-    public virtual void increaseCost(int gold)
+    public void increaseCost(int gold)
     {
         cost += gold;
     }
+
 }

@@ -6,7 +6,7 @@ public class UpgradeStrength : ShopManager
 {
     private PlayerGold player;
     private PlayerStat stat;
-    private int cost;
+    private int cost = 200;
 
     void StrengthUp()
     {
@@ -16,8 +16,12 @@ public class UpgradeStrength : ShopManager
         }
         else
         {
-            stat.Strength.SetValue(stat.Strength.getValue() + 10);
-            increaseCost(50);
+            stat.Strength.SetValue(stat.Strength.getValue() + 20);
+            increaseCost();
         }
+    }
+    public void increaseCost()
+    {
+        cost += 200;
     }
 }

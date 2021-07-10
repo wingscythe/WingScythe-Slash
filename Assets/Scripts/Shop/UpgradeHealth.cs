@@ -6,7 +6,7 @@ public class UpgradeHealth : ShopManager
 {
     private PlayerGold player;
     private PlayerStat stat;
-    private int cost;
+    private int cost = 250;
 
     void HealthUp()
     {
@@ -16,8 +16,13 @@ public class UpgradeHealth : ShopManager
         }
         else
         {
-            stat.Health.SetValue(stat.Health.getValue() + 5);
-            increaseCost(50);
+            stat.Health.SetValue(stat.Health.getValue() + 50);
+            increaseCost();
         }
+    }
+
+    public void increaseCost()
+    {
+        cost += 100;
     }
 }

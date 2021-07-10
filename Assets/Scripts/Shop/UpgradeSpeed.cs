@@ -6,7 +6,7 @@ public class UpgradeSpeed : ShopManager
 {
     private PlayerGold player;
     private PlayerStat stat;
-    private int cost;
+    private int cost = 100;
 
     void SpeedUp()
     {
@@ -17,7 +17,11 @@ public class UpgradeSpeed : ShopManager
         else
         {
             stat.Speed.SetValue(stat.Speed.getValue() + 1);
-            increaseCost(50);
+            increaseCost();
         }
+    }
+    public void increaseCost()
+    {
+        cost += 50;
     }
 }

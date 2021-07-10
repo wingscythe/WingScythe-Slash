@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 169646949}
   - component: {fileID: 169646951}
   - component: {fileID: 169646952}
+  - component: {fileID: 169646953}
   m_Layer: 8
   m_Name: stick
   m_TagString: Untagged
@@ -478,6 +479,19 @@ MonoBehaviour:
   - {fileID: 1930545082}
   - {fileID: 2042387284}
   - {fileID: 419967664}
+--- !u!114 &169646953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169646947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44041804435cc0640ad3ddbdf18ea073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1233717329}
 --- !u!1 &250280801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,6 +1737,7 @@ GameObject:
   - component: {fileID: 1233717327}
   - component: {fileID: 1233717329}
   - component: {fileID: 1233717328}
+  - component: {fileID: 1233717330}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1802,6 +1817,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
+--- !u!114 &1233717330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233717325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24eb97f858e0c64c9abd2430b41e461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  Strength:
+    baseValue: 0
+  Speed:
+    baseValue: 0
+  AtkSpeed:
+    baseValue: 0
+  Health:
+    baseValue: 0
 --- !u!1 &1930545080
 GameObject:
   m_ObjectHideFlags: 0
