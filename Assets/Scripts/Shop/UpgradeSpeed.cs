@@ -17,6 +17,7 @@ public class UpgradeSpeed : ShopManager
         else
         {
             stat.Speed.SetValue(stat.Speed.getValue() + 1);
+            player.minusGold(new Gold(cost));
             increaseCost();
         }
     }

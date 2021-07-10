@@ -17,6 +17,7 @@ public class UpgradeStrength : ShopManager
         else
         {
             stat.Strength.SetValue(stat.Strength.getValue() + 20);
+            player.minusGold(new Gold(cost));
             increaseCost();
         }
     }
