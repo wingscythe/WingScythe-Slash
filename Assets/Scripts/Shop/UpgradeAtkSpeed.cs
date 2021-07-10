@@ -9,6 +9,7 @@ public class UpgradeAtkSpeed : ShopManager
     private PlayerStat stat;
     private int cost = 200;
 
+    //increases atkspeed in animator, change stats later
     void AtkSpeedUp()
     {
         if (player.showGold() < cost)
@@ -27,6 +28,8 @@ public class UpgradeAtkSpeed : ShopManager
     {
         cost += 50;
     }
+
+    //remove when implementing buttons
     void Update()
     {
         AtkSpeedUp();

@@ -17,6 +17,7 @@ public class UpgradeHealth : ShopManager
         else
         {
             stat.Health.SetValue(stat.Health.getValue() + 50);
+            player.minusGold(new Gold(cost));
             increaseCost();
         }
     }
