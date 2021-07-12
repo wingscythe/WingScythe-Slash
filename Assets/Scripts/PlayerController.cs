@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
     private float moveInput;
     private float lastInput;
     private float velocity;
-    [SerializeField]
-    private float speed = 10.0f;
     public bool isAttacking = false;
     public bool isBlocking = false;
     public static PlayerController Instance;
@@ -21,6 +19,13 @@ public class PlayerController : MonoBehaviour
     public GameObject right = null;
     public float distance = 0;
     public float distancer = 0;
+
+    //TODO: Merge with Player Stats for better modularity. Must also change supporting scripts, such as HitBoxController, and have a PlayerStat instance.
+    [Header("Stats")]
+    [SerializeField]
+    private float speed = 10.0f;
+    public float health = 100f;
+    public float strength = 1f;
 
     private void Awake()
     {
@@ -160,5 +165,46 @@ public class PlayerController : MonoBehaviour
     {
         animator.Play("Idle");
         isAttacking = false;
+    }
+
+    public void headHit(float damage)
+    {
+        //Play head hit animation
+        animator.Play("headhit");
+
+        //Decrease health
+        takeDamage(damage);
+    }
+
+    public void legHit(float damage)
+    {
+        //Play head hit animation
+
+        //Decrease health
+        takeDamage(damage);
+    }
+
+    public void bodyHit(float damage)
+    {
+        //Play head hit animation
+
+        //Decrease health
+        takeDamage(damage);
+    }
+
+    public void takeDamage(float damage)
+    {
+        health -= damage;
+        //check if dead
+
+        if (health <= 0)
+        {
+            Debug.Log("Player Killed");
+
+            //TODO: Death logic
+
+            //Edit this with death animation length
+            Destroy(gameObject);
+        }
     }
 }

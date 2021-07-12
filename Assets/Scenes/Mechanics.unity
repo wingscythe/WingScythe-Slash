@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 41207953}
   - component: {fileID: 41207952}
   - component: {fileID: 41207956}
+  - component: {fileID: 41207957}
   m_Layer: 9
   m_Name: TestDummy (1)
   m_TagString: Untagged
@@ -190,6 +191,7 @@ MonoBehaviour:
   health: 100
   gold: {fileID: 0}
   animator: {fileID: 0}
+  strength: 1
 --- !u!4 &41207955
 Transform:
   m_ObjectHideFlags: 0
@@ -220,11 +222,26 @@ MonoBehaviour:
   target: {fileID: 1233717325}
   rb: {fileID: 41207952}
   anim: {fileID: 472943708}
-  range: 2
+  range: 0.5
   speed: 1
   inRange: 0
   facingRight: 0
   isWalking: 0
+--- !u!114 &41207957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41207951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93145d7c58a171d40a2370b079747592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathFinder: {fileID: 41207956}
+  animator: {fileID: 472943708}
+  isAttacking: 0
 --- !u!1 &164258905
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +376,7 @@ GameObject:
   - component: {fileID: 169646953}
   m_Layer: 8
   m_Name: stick
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -479,6 +496,7 @@ MonoBehaviour:
   - {fileID: 1930545082}
   - {fileID: 2042387284}
   - {fileID: 419967664}
+  isEnemy: 0
 --- !u!114 &169646953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,10 +836,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.3285992, y: 0.64152575}
-      - {x: -0.20221499, y: 0.48713356}
-      - {x: -0.7331599, y: 0.5000437}
-      - {x: -0.73516893, y: 0.64914256}
+    - - {x: -0.51269484, y: 0.6546755}
+      - {x: -0.4257599, y: 0.48713356}
+      - {x: -0.6148124, y: 0.50004345}
+      - {x: -0.6036719, y: 0.66229206}
 --- !u!212 &419967665
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -884,6 +902,7 @@ GameObject:
   - component: {fileID: 472943710}
   - component: {fileID: 472943709}
   - component: {fileID: 472943708}
+  - component: {fileID: 472943712}
   m_Layer: 9
   m_Name: stick
   m_TagString: Untagged
@@ -990,6 +1009,23 @@ Transform:
   m_Father: {fileID: 41207955}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &472943712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472943707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c305413db0e7f64798e7aa3fed9292d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliders:
+  - {fileID: 1930545082}
+  - {fileID: 2042387284}
+  - {fileID: 419967664}
+  isEnemy: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1276,7 @@ MonoBehaviour:
   health: 4
   gold: {fileID: 0}
   animator: {fileID: 977542488}
+  strength: 1
 --- !u!4 &782981279
 Transform:
   m_ObjectHideFlags: 0
@@ -1325,6 +1362,7 @@ MonoBehaviour:
   health: 4
   gold: {fileID: 0}
   animator: {fileID: 250280804}
+  strength: 1
 --- !u!114 &838200323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1406,6 +1444,7 @@ MonoBehaviour:
   health: 4
   gold: {fileID: 0}
   animator: {fileID: 164258906}
+  strength: 1
 --- !u!4 &865727520
 Transform:
   m_ObjectHideFlags: 0
@@ -1775,7 +1814,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 169646949}
   rb: {fileID: 1233717328}
-  speed: 1
   isAttacking: 0
   isBlocking: 0
   facingRight: 0
@@ -1783,6 +1821,9 @@ MonoBehaviour:
   right: {fileID: 0}
   distance: 0
   distancer: 0
+  speed: 1
+  health: 100
+  strength: 1
 --- !u!50 &1233717328
 Rigidbody2D:
   serializedVersion: 4
@@ -1864,7 +1905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1930545080}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.036855698, y: -1.9364824, z: 1.3417656}
+  m_LocalPosition: {x: 6.05, y: 12.11, z: 1.3417656}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 266581174}
@@ -1895,10 +1936,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.028258145, y: 0.74548936}
-      - {x: 0.14100468, y: 0.6389319}
-      - {x: -0.2795012, y: 0.63215303}
-      - {x: -0.3121121, y: 0.7349138}
+    - - {x: -0.22940129, y: 0.75286645}
+      - {x: -0.20272374, y: 0.7454891}
+      - {x: -0.20595801, y: 0.6366801}
+      - {x: -0.308923, y: 0.63215303}
+      - {x: -0.3121121, y: 0.7496252}
 --- !u!212 &1930545083
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2017,6 +2059,7 @@ MonoBehaviour:
   health: 4
   gold: {fileID: 0}
   animator: {fileID: 408307066}
+  strength: 1
 --- !u!4 &1944700064
 Transform:
   m_ObjectHideFlags: 0
@@ -2075,10 +2118,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.32909214, y: 0.68913525}
-      - {x: 0.13188863, y: 0.6891362}
-      - {x: -0.028735757, y: 0.79933566}
-      - {x: -0.3294046, y: 0.7990919}
+    - - {x: -0.3783251, y: 0.68913525}
+      - {x: -0.27017713, y: 0.68587464}
+      - {x: -0.27300525, y: 0.80480593}
+      - {x: -0.3786378, y: 0.7990919}
 --- !u!212 &2042387285
 SpriteRenderer:
   m_ObjectHideFlags: 0
