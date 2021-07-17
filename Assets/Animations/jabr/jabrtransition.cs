@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class jabrtransition : StateMachineBehaviour
-{
+public class jabrtransition : StateMachineBehaviour {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-       if(PlayerController.Instance.isAttacking){
-           PlayerController.Instance.animator.Play("jabl");
-       }
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        if (PlayerController.Instance.isAttacking) {
+            PlayerController.Instance.animator.Play("jabl");
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -19,9 +17,8 @@ public class jabrtransition : StateMachineBehaviour
     //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-       PlayerController.Instance.isAttacking = false;
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        PlayerController.Instance.isAttacking = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

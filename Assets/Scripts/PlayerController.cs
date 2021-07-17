@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     [Header("General")]
     public Animator animator;
     [SerializeField]
@@ -11,8 +10,6 @@ public class PlayerController : MonoBehaviour
     private float moveInput;
     private float lastInput;
     private float velocity;
-    [SerializeField]
-    private float speed = 10.0f;
     public bool isAttacking = false;
     public bool isBlocking = false;
     public static PlayerController Instance;
@@ -22,22 +19,27 @@ public class PlayerController : MonoBehaviour
     public float distance = 0;
     public float distancer = 0;
 
-    private void Awake(){
+    //TODO: Merge with Player Stats for better modularity. Must also change supporting scripts, such as HitBoxController, and have a PlayerStat instance.
+    [Header("Stats")]
+    [SerializeField]
+    private float speed = 10.0f;
+    public float health = 100f;
+    public float strength = 1f;
+
+    private void Awake() {
         Instance = this;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         Attack();
         lastInput = moveInput;
-        if (Input.touchCount > 0){
+        if (Input.touchCount > 0) {
             var touch = Input.GetTouch(0);
             if (touch.position.x < Screen.width / 2) {
                 //Left click
                 moveInput = -1;
-            }
-            else { 
+            } else {
                 //Right click
                 moveInput = 1;
             }
@@ -45,23 +47,22 @@ public class PlayerController : MonoBehaviour
                 //upper click
                 isBlocking = true;
                 isAttacking = false;
-                Debug.Log("Yeah");
-            }
-            else {
+            } else {
                 isBlocking = false;
             }
-        }else{
+        } else {
             isBlocking = false;
             moveInput = 0;
         }
         if (!facingRight && moveInput > 0) {
             Flip();
             Reset();
+            Debug.Log(moveInput);
         } else if (facingRight && moveInput < 0) {
             Flip();
             Reset();
         }
-        if(!isAttacking && !isBlocking){
+        if (!isAttacking && !isBlocking) {
             if (moveInput != 0) {
                 animator.SetBool("isWalking", true);
             } else {
@@ -69,11 +70,11 @@ public class PlayerController : MonoBehaviour
             }
 
             velocity = speed * moveInput;
-            rb.velocity = new Vector2(velocity,0);
+            rb.velocity = new Vector2(velocity, 0);
             animator.SetFloat("Velocity", velocity);
-        }else{
+        } else {
             velocity = 0;
-            rb.velocity = new Vector2(velocity,0);
+            rb.velocity = new Vector2(velocity, 0);
             animator.SetFloat("Velocity", velocity);
         }
 
@@ -82,31 +83,29 @@ public class PlayerController : MonoBehaviour
         left = null;
         distance = 0;
         distancer = 0;
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(0.5f,0,0), Vector2.left, 5f, layerMask);
-        if (hitLeft.collider != null)
-        {
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(0.5f, 0, 0), Vector2.left, 5f, layerMask);
+        if (hitLeft.collider != null) {
             left = hitLeft.collider.transform.parent.gameObject;
             distance = hitLeft.distance;
             Debug.DrawRay(transform.position, Vector2.left * hitLeft.distance, Color.red);
         }
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position + new Vector3(0.5f,0,0), Vector2.right, 5f, layerMask);
-        if (hitRight.collider != null)
-        {
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position + new Vector3(0.5f, 0, 0), Vector2.right, 5f, layerMask);
+        if (hitRight.collider != null) {
             right = hitRight.collider.transform.parent.gameObject;
             distancer = hitRight.distance;
             Debug.DrawRay(transform.position, Vector2.right * hitRight.distance, Color.blue);
         }
     }
 
-    void Attack(){
-        if(left && !facingRight && !isAttacking){
+    void Attack() {
+        if (left && !facingRight && !isAttacking) {
             isAttacking = true;
-        }else if(right && facingRight && !isAttacking){
+        } else if (right && facingRight && !isAttacking) {
             isAttacking = true;
         }
     }
 
-    void Flip(){
+    void Flip() {
         // Switch the way the player is labelled as facing
         facingRight = !facingRight;
 
@@ -116,21 +115,58 @@ public class PlayerController : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    public void Dash(){
-        if(left && !facingRight && distance > .2f){
-            if(left != right){
-                this.transform.position = left.transform.position + new Vector3(0.5f, 0, 0);  
-                Debug.Log(left.transform.position);
+    public void Dash() {
+        if (left && !facingRight && distance > .2f) {
+            if (left != right) {
+                this.transform.position = left.transform.position + new Vector3(0.5f, 0, 0);
             }
-        }else if(right && facingRight && distancer > .2f){
-            if(left != right){
-                this.transform.position = right.transform.position - new Vector3(0.5f, 0, 0); 
+        } else if (right && facingRight && distancer > .2f) {
+            if (left != right) {
+                this.transform.position = right.transform.position - new Vector3(0.5f, 0, 0);
             }
         }
     }
 
-    public void Reset(){
+    public void Reset() {
         animator.Play("Idle");
         isAttacking = false;
+    }
+
+    public void headHit(float damage) {
+        //Play head hit animation
+        animator.Play("headhit");
+
+        //Decrease health
+        takeDamage(damage);
+    }
+
+    public void legHit(float damage) {
+        //Play head hit animation
+        animator.Play("headhit");
+
+        //Decrease health
+        takeDamage(damage);
+    }
+
+    public void bodyHit(float damage) {
+        //Play head hit animation
+        animator.Play("headhit");
+
+        //Decrease health
+        takeDamage(damage);
+    }
+
+    public void takeDamage(float damage) {
+        health -= damage;
+        //check if dead
+
+        if (health <= 0) {
+            Debug.Log("Player Killed");
+
+            //TODO: Death logic
+
+            //Edit this with death animation length
+            Destroy(gameObject);
+        }
     }
 }
