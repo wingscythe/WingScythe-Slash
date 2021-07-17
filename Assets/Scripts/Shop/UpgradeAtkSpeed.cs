@@ -22,6 +22,7 @@ public class UpgradeAtkSpeed : ShopManager
         Debug.Log("Button pressed");
         if (player.showGold() < cost)
         {
+            if (!maxUpgrades(max)) return;
             this.GetComponentInChildren<Text>().text = "NOT ENOUGH GOLD";
             return;
         }
