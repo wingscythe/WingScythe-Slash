@@ -31,7 +31,7 @@ public class UpgradeAtkSpeed : ShopManager
             Debug.Log(anim);
             anim.SetFloat("atkspd", anim.GetFloat("atkspd") + (float)0.5);
             player.minusGold(new Gold(cost));
-            increaseCost(10);
+            increaseCost();
             if (maxUpgrades(max))
             {
                 Debug.Log("MAX UPGRADES MADE");
@@ -41,7 +41,8 @@ public class UpgradeAtkSpeed : ShopManager
     }
     public void increaseCost()
     {
-        cost += 50;
+        cost += 10;
+        upgrades++;
     }
 
     //remove when implementing buttons
