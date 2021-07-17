@@ -118,11 +118,11 @@ public class PlayerController : MonoBehaviour {
     public void Dash() {
         if (left && !facingRight && distance > .2f) {
             if (left != right) {
-                this.transform.position = left.transform.position + new Vector3(0.5f, 0, 0);
+                this.transform.position = new Vector3(left.transform.position.x + 0.5f, transform.position.y, 0);
             }
         } else if (right && facingRight && distancer > .2f) {
             if (left != right) {
-                this.transform.position = right.transform.position - new Vector3(0.5f, 0, 0);
+                this.transform.position = new Vector3(right.transform.position.x - 0.5f, transform.position.y, 0);
             }
         }
     }
