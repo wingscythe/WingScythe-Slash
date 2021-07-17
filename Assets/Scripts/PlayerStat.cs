@@ -30,7 +30,6 @@ public class PlayerStat : MonoBehaviour {
     }
     public int getStrength() {
         return Strength.getValue();
-
     }
     //setting/changing stats
     public int setSpeed(int _speed) {
