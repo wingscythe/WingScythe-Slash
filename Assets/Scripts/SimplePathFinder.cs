@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Simple script that locks on to target and moves in range
-public class SimplePathFinder : MonoBehaviour {
+public class SimplePathFinder : MonoBehaviour
+{
     [Header("General")]
     public GameObject target;
     public Rigidbody2D rb;
@@ -17,26 +18,42 @@ public class SimplePathFinder : MonoBehaviour {
     public bool isWalking = false;
 
     // Start is called before the first frame update
-    void Start() {
-        if (!target) {
+    void Start()
+    {
+        if (!target)
+        {
             Destroy(this);
         }
     }
 
     // Update is called once per frame
-    void Update() {
-        if (!facingRight && transform.position.x < target.transform.position.x) {
+    void Update()
+    {
+        if (!facingRight && transform.position.x < target.transform.position.x)
+        {
             Flip();
-        } else if (facingRight && transform.position.x > target.transform.position.x) {
+        }
+        else if (facingRight && transform.position.x > target.transform.position.x)
+        {
             Flip();
         }
         float distance = Vector3.Distance(target.transform.position, transform.position);
-        if (distance > range) {
-            rb.velocity = speed * new Vector3(1, 0, 0);
+        if (distance > range)
+        {
+            if (facingRight)
+            {
+                rb.velocity = speed * new Vector3(1, 0, 0);
+            }
+            else
+            {
+                rb.velocity = speed * new Vector3(-1, 0, 0);
+            }
             inRange = false;
             isWalking = true;
             anim.SetBool("isWalking", true);
-        } else {
+        }
+        else
+        {
             rb.velocity = Vector2.zero;
             inRange = true;
             isWalking = false;
@@ -44,7 +61,8 @@ public class SimplePathFinder : MonoBehaviour {
         }
     }
 
-    void Flip() {
+    void Flip()
+    {
         facingRight = !facingRight;
 
         // Multiply the player's x local scale by -1

@@ -190,7 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   gold: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 472943708}
   strength: 1
 --- !u!4 &41207955
 Transform:
@@ -2023,7 +2023,6 @@ GameObject:
   - component: {fileID: 1917717023}
   - component: {fileID: 1917717022}
   - component: {fileID: 1917717025}
-  - component: {fileID: 1917717026}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2048,7 +2047,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 488, y: 516}
+  m_AnchoredPosition: {x: 488, y: 316}
   m_SizeDelta: {x: 174.62173, y: 34.22397}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1917717022
@@ -2156,25 +2155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1233717329}
   stick: {fileID: 169646947}
---- !u!95 &1917717026
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917717020}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0d2c183c273f75b44938f450d8121726, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1930545080
 GameObject:
   m_ObjectHideFlags: 0

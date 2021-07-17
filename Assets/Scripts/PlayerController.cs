@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
             Reset();
+            Debug.Log(moveInput);
         }
         else if (facingRight && moveInput < 0)
         {
@@ -149,7 +150,6 @@ public class PlayerController : MonoBehaviour
             if (left != right)
             {
                 this.transform.position = left.transform.position + new Vector3(0.5f, 0, 0);
-                Debug.Log(left.transform.position);
             }
         }
         else if (right && facingRight && distancer > .2f)
@@ -179,6 +179,7 @@ public class PlayerController : MonoBehaviour
     public void legHit(float damage)
     {
         //Play head hit animation
+        animator.Play("headhit");
 
         //Decrease health
         takeDamage(damage);
@@ -187,6 +188,7 @@ public class PlayerController : MonoBehaviour
     public void bodyHit(float damage)
     {
         //Play head hit animation
+        animator.Play("headhit");
 
         //Decrease health
         takeDamage(damage);

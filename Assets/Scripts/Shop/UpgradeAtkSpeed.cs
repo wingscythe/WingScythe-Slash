@@ -27,7 +27,7 @@ public class UpgradeAtkSpeed : ShopManager
         }
         else
         {
-            Animator anim = stick.GetComponent<Animator>();
+            Animator anim = PlayerController.Instance.animator;
             Debug.Log(anim);
             anim.SetFloat("atkspd", anim.GetFloat("atkspd") + (float)0.5);
             player.minusGold(new Gold(cost));
