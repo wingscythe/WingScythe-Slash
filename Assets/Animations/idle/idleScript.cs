@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class idleScript : StateMachineBehaviour
-{
+public class idleScript : StateMachineBehaviour {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -11,22 +10,19 @@ public class idleScript : StateMachineBehaviour
     //}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        if (PlayerController.Instance.isBlocking){
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        if (PlayerController.Instance.isBlocking) {
             PlayerController.Instance.animator.Play("Blocking");
+        } else if (PlayerController.Instance.isAttacking) {
+            PlayerController.Instance.animator.Play("punch1_1");
+            PlayerController.Instance.gameObject.GetComponent<PlayerController>().Dash();
         }
-        else if(PlayerController.Instance.isAttacking){
-           PlayerController.Instance.animator.Play("punch1_1");
-           PlayerController.Instance.gameObject.GetComponent<PlayerController>().Dash();
-       }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-       PlayerController.Instance.isAttacking = false;
-       PlayerController.Instance.isBlocking = false;
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        PlayerController.Instance.isAttacking = false;
+        PlayerController.Instance.isBlocking = false;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Stat
-{
+public class Stat {
     [SerializeField]
     private int baseValue;
 
-    public int getValue()
-    {
+    public int getValue() {
         return this.baseValue;
     }
-    public int SetValue(int n)
-    {
+    public int SetValue(int n) {
         this.baseValue = n;
         return this.baseValue;
     }

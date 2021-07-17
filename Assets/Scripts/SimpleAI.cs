@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleAI : MonoBehaviour
-{
+public class SimpleAI : MonoBehaviour {
     [Header("General")]
     public SimplePathFinder pathFinder;
     public Animator animator;
@@ -12,26 +11,20 @@ public class SimpleAI : MonoBehaviour
     public bool isAttacking = false;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         pathFinder = GetComponent<SimplePathFinder>();
-        if (!pathFinder || !pathFinder.target)
-        {
+        if (!pathFinder || !pathFinder.target) {
             Destroy(this);
         }
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (pathFinder.inRange)
-        {
+    void Update() {
+        if (pathFinder.inRange) {
             //Start Attack
             isAttacking = true;
             animator.SetBool("isAttacking", true);
-        }
-        else
-        {
+        } else {
             isAttacking = false;
             animator.SetBool("isAttacking", false);
         }

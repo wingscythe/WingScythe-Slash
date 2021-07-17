@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
-{
+public class EnemyController : MonoBehaviour {
 
     [Header("General")]
     public float health = 1;
@@ -11,20 +10,17 @@ public class EnemyController : MonoBehaviour
     public Animator animator;
     public float strength = 1;
 
-    void Start()
-    {
+    void Start() {
         gold = GetComponent<Gold>();
         animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 
     }
 
-    public void headHit(float damage)
-    {
+    public void headHit(float damage) {
         //Play head hit animation
         animator.Play("headhit");
 
@@ -32,29 +28,25 @@ public class EnemyController : MonoBehaviour
         takeDamage(damage);
     }
 
-    public void legHit(float damage)
-    {
+    public void legHit(float damage) {
         //Play head hit animation
 
         //Decrease health
         takeDamage(damage);
     }
 
-    public void bodyHit(float damage)
-    {
+    public void bodyHit(float damage) {
         //Play head hit animation
 
         //Decrease health
         takeDamage(damage);
     }
 
-    public void takeDamage(float damage)
-    {
+    public void takeDamage(float damage) {
         health -= damage;
         //check if dead
 
-        if (health <= 0)
-        {
+        if (health <= 0) {
             Debug.Log("Enemy Killed");
 
             //Reset player combo

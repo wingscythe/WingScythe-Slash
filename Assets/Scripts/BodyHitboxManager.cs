@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyHitboxManager : MonoBehaviour
-{
+public class BodyHitboxManager : MonoBehaviour {
     // Used for organization
     public PolygonCollider2D[] colliders;
 
@@ -12,39 +11,30 @@ public class BodyHitboxManager : MonoBehaviour
 
     public bool isEnemy = false;
 
-    void Start()
-    {
+    void Start() {
         // Create a polygon collider
         localCollider = gameObject.AddComponent<PolygonCollider2D>();
         localCollider.isTrigger = true; // Set as a trigger so it doesn't collide with our environment
         localCollider.pathCount = 0; // Clear auto-generated polygons
     }
 
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (!isEnemy)
-        {
+    void OnTriggerEnter2D(Collider2D col) {
+        if (!isEnemy) {
             EnemyController controller = col.gameObject.GetComponentInParent<EnemyController>();
 
-            if (controller)
-            {
+            if (controller) {
                 controller.bodyHit(PlayerController.Instance.strength);
             }
-        }
-        else
-        {
+        } else {
             EnemyController controller = GetComponentInParent<EnemyController>();
-            if (col.tag == "Player")
-            {
+            if (col.tag == "Player") {
                 PlayerController.Instance.bodyHit(controller.strength);
             }
         }
     }
 
-    public void setHitBox(int val)
-    {
-        if (val != -1)
-        {
+    public void setHitBox(int val) {
+        if (val != -1) {
             localCollider.SetPath(0, colliders[val].GetPath(0));
             return;
         }

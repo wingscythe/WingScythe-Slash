@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     [Header("General")]
     public Animator animator;
     [SerializeField]
@@ -27,73 +26,53 @@ public class PlayerController : MonoBehaviour
     public float health = 100f;
     public float strength = 1f;
 
-    private void Awake()
-    {
+    private void Awake() {
         Instance = this;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         Attack();
         lastInput = moveInput;
-        if (Input.touchCount > 0)
-        {
+        if (Input.touchCount > 0) {
             var touch = Input.GetTouch(0);
-            if (touch.position.x < Screen.width / 2)
-            {
+            if (touch.position.x < Screen.width / 2) {
                 //Left click
                 moveInput = -1;
-            }
-            else
-            {
+            } else {
                 //Right click
                 moveInput = 1;
             }
-            if (touch.position.y > Screen.height / 2)
-            {
+            if (touch.position.y > Screen.height / 2) {
                 //upper click
                 isBlocking = true;
                 isAttacking = false;
-            }
-            else
-            {
+            } else {
                 isBlocking = false;
             }
-        }
-        else
-        {
+        } else {
             isBlocking = false;
             moveInput = 0;
         }
-        if (!facingRight && moveInput > 0)
-        {
+        if (!facingRight && moveInput > 0) {
             Flip();
             Reset();
             Debug.Log(moveInput);
-        }
-        else if (facingRight && moveInput < 0)
-        {
+        } else if (facingRight && moveInput < 0) {
             Flip();
             Reset();
         }
-        if (!isAttacking && !isBlocking)
-        {
-            if (moveInput != 0)
-            {
+        if (!isAttacking && !isBlocking) {
+            if (moveInput != 0) {
                 animator.SetBool("isWalking", true);
-            }
-            else
-            {
+            } else {
                 animator.SetBool("isWalking", false);
             }
 
             velocity = speed * moveInput;
             rb.velocity = new Vector2(velocity, 0);
             animator.SetFloat("Velocity", velocity);
-        }
-        else
-        {
+        } else {
             velocity = 0;
             rb.velocity = new Vector2(velocity, 0);
             animator.SetFloat("Velocity", velocity);
@@ -105,35 +84,28 @@ public class PlayerController : MonoBehaviour
         distance = 0;
         distancer = 0;
         RaycastHit2D hitLeft = Physics2D.Raycast(transform.position - new Vector3(0.5f, 0, 0), Vector2.left, 5f, layerMask);
-        if (hitLeft.collider != null)
-        {
+        if (hitLeft.collider != null) {
             left = hitLeft.collider.transform.parent.gameObject;
             distance = hitLeft.distance;
             Debug.DrawRay(transform.position, Vector2.left * hitLeft.distance, Color.red);
         }
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position + new Vector3(0.5f, 0, 0), Vector2.right, 5f, layerMask);
-        if (hitRight.collider != null)
-        {
+        if (hitRight.collider != null) {
             right = hitRight.collider.transform.parent.gameObject;
             distancer = hitRight.distance;
             Debug.DrawRay(transform.position, Vector2.right * hitRight.distance, Color.blue);
         }
     }
 
-    void Attack()
-    {
-        if (left && !facingRight && !isAttacking)
-        {
+    void Attack() {
+        if (left && !facingRight && !isAttacking) {
             isAttacking = true;
-        }
-        else if (right && facingRight && !isAttacking)
-        {
+        } else if (right && facingRight && !isAttacking) {
             isAttacking = true;
         }
     }
 
-    void Flip()
-    {
+    void Flip() {
         // Switch the way the player is labelled as facing
         facingRight = !facingRight;
 
@@ -143,32 +115,24 @@ public class PlayerController : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    public void Dash()
-    {
-        if (left && !facingRight && distance > .2f)
-        {
-            if (left != right)
-            {
+    public void Dash() {
+        if (left && !facingRight && distance > .2f) {
+            if (left != right) {
                 this.transform.position = left.transform.position + new Vector3(0.5f, 0, 0);
             }
-        }
-        else if (right && facingRight && distancer > .2f)
-        {
-            if (left != right)
-            {
+        } else if (right && facingRight && distancer > .2f) {
+            if (left != right) {
                 this.transform.position = right.transform.position - new Vector3(0.5f, 0, 0);
             }
         }
     }
 
-    public void Reset()
-    {
+    public void Reset() {
         animator.Play("Idle");
         isAttacking = false;
     }
 
-    public void headHit(float damage)
-    {
+    public void headHit(float damage) {
         //Play head hit animation
         animator.Play("headhit");
 
@@ -176,8 +140,7 @@ public class PlayerController : MonoBehaviour
         takeDamage(damage);
     }
 
-    public void legHit(float damage)
-    {
+    public void legHit(float damage) {
         //Play head hit animation
         animator.Play("headhit");
 
@@ -185,8 +148,7 @@ public class PlayerController : MonoBehaviour
         takeDamage(damage);
     }
 
-    public void bodyHit(float damage)
-    {
+    public void bodyHit(float damage) {
         //Play head hit animation
         animator.Play("headhit");
 
@@ -194,13 +156,11 @@ public class PlayerController : MonoBehaviour
         takeDamage(damage);
     }
 
-    public void takeDamage(float damage)
-    {
+    public void takeDamage(float damage) {
         health -= damage;
         //check if dead
 
-        if (health <= 0)
-        {
+        if (health <= 0) {
             Debug.Log("Player Killed");
 
             //TODO: Death logic
