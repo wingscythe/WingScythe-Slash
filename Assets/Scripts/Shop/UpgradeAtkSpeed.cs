@@ -25,11 +25,6 @@ public class UpgradeAtkSpeed : ShopManager
             this.GetComponentInChildren<Text>().text = "NOT ENOUGH GOLD";
             return;
         }
-        else if (maxUpgrades(max))
-        {
-            Debug.Log("MAX UPGRADES MADE");
-            this.GetComponentInChildren<Text>().text = "MAX UPGRADES";
-        }
         else
         {
             Animator anim = stick.GetComponent<Animator>();
@@ -37,6 +32,11 @@ public class UpgradeAtkSpeed : ShopManager
             anim.SetFloat("atkspd", anim.GetFloat("atkspd") + (float)0.5);
             player.minusGold(new Gold(cost));
             increaseCost(10);
+            if (maxUpgrades(max))
+            {
+                Debug.Log("MAX UPGRADES MADE");
+                this.GetComponentInChildren<Text>().text = "MAX UPGRADES";
+            }
         }
     }
     public void increaseCost()
