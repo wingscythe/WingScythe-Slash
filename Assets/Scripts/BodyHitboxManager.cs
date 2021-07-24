@@ -23,7 +23,7 @@ public class BodyHitboxManager : MonoBehaviour {
             EnemyController controller = col.gameObject.GetComponentInParent<EnemyController>();
 
             if (controller) {
-                controller.bodyHit(PlayerController.Instance.strength);
+                controller.bodyHit(PlayerController.Instance.stats.getStrength());
             }
         } else {
             EnemyController controller = GetComponentInParent<EnemyController>();

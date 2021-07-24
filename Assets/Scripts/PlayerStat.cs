@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStat : MonoBehaviour {
-    public int maxHealth = 10;
-    public int currentHealth { get; private set; }
+    public int maxHealth = 100;
     public Stat Strength;
     public Stat Speed;
     public Stat AtkSpeed;
     public Stat Health;
-
-    void Awake() {
-        currentHealth = maxHealth;
-    }
 
     void Start() {
         //Get saved PlayerStat if relevant
@@ -30,18 +25,11 @@ public class PlayerStat : MonoBehaviour {
         }
     }
 
-    public void TakeDamage(int damage) {
-        currentHealth -= damage;
-        if (currentHealth <= 0) {
-            // death
-        }
-    }
-
     public int getSpeed() {
         return Speed.getValue();
     }
     public int getHealth() {
-        return currentHealth;
+        return Health.getValue();
     }
     public double getAtkSpeed() {
         return this.GetComponent<Animator>().GetFloat("atkspd");
@@ -62,5 +50,20 @@ public class PlayerStat : MonoBehaviour {
     public int setStrength(int _strength) {
         return Strength.SetValue(_strength);
 
+    }
+
+    public void takeDamage(int damage) {
+        int health = getHealth() - damage;
+        setHealth(health);
+        //check if dead
+
+        if (health <= 0) {
+            Debug.Log("Player Killed");
+
+            //TODO: Death logic
+
+            //Edit this with death animation length
+            Destroy(gameObject);
+        }
     }
 }
