@@ -6,7 +6,7 @@ public class PlayerStat : MonoBehaviour {
     public int maxHealth = 100;
     public Stat Strength;
     public Stat Speed;
-    public Stat AtkSpeed;
+    public Stat AtkSpeed; //TODO: change attack speed to divide by 10 to make it a float
     public Stat Health;
 
     void Start() {
