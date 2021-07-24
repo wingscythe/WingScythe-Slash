@@ -9,9 +9,9 @@ public class PlayerStat : MonoBehaviour {
     public Stat Speed;
     public Stat AtkSpeed;
     public Stat Health;
-    void Awake() {
-        currentHealth = maxHealth;
-    }
+    // void Awake() {
+    //     currentHealth = maxHealth;
+    // }
     public void TakeDamage(int damage) {
         currentHealth -= damage;
         if (currentHealth <= 0) {
@@ -26,7 +26,7 @@ public class PlayerStat : MonoBehaviour {
         return currentHealth;
     }
     public double getAtkSpeed() {
-        return AtkSpeed.getValue();
+        return this.GetComponent<Animator>().GetFloat("atkspd");
     }
     public int getStrength() {
         return Strength.getValue();
