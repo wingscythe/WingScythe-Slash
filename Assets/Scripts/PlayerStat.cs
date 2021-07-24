@@ -9,6 +9,7 @@ public class PlayerStat : MonoBehaviour {
     public Stat Speed;
     public Stat AtkSpeed;
     public Stat Health;
+
     void Awake() {
         currentHealth = maxHealth;
     }
@@ -43,7 +44,7 @@ public class PlayerStat : MonoBehaviour {
         return currentHealth;
     }
     public double getAtkSpeed() {
-        return AtkSpeed.getValue();
+        return this.GetComponent<Animator>().GetFloat("atkspd");
     }
     public int getStrength() {
         return Strength.getValue();
