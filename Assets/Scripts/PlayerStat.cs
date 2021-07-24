@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStat : MonoBehaviour {
     public int maxHealth = 100;
+    public int currentHealth;
     public Stat Strength;
     public Stat Speed;
     public Stat AtkSpeed; //TODO: change attack speed to divide by 10 to make it a float
@@ -24,6 +25,9 @@ public class PlayerStat : MonoBehaviour {
             Health = Save.Instance.getStats("Health");
         }
     }
+    public void Awake() {
+        currentHealth = maxHealth;
+    }
 
     public int getSpeed() {
         return Speed.getValue();
@@ -42,7 +46,8 @@ public class PlayerStat : MonoBehaviour {
         return Speed.SetValue(_speed);
     }
     public int setHealth(int _health) {
-        return Health.SetValue(_health);
+        currentHealth += _health;
+        return maxHealth += _health;
     }
     public double setAtkSpeed(int _atkspeed) {
         return AtkSpeed.SetValue(_atkspeed);
