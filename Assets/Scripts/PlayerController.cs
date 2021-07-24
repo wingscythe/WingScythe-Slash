@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour {
     public float distance = 0;
     public float distancer = 0;
 
+    [Header("Utility")]
+    public PlayerGold playerGold;
+    public PlayerStat playerStats;
+
     //TODO: Merge with Player Stats for better modularity. Must also change supporting scripts, such as HitBoxController, and have a PlayerStat instance.
     [Header("Stats")]
     [SerializeField]

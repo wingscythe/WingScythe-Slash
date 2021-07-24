@@ -12,6 +12,23 @@ public class PlayerStat : MonoBehaviour {
     void Awake() {
         currentHealth = maxHealth;
     }
+
+    void Start() {
+        //Get saved PlayerStat if relevant
+        if (Save.Instance.getStats("Strength") != null) {
+            Strength = Save.Instance.getStats("Strength");
+        }
+        if (Save.Instance.getStats("Speed") != null) {
+            Speed = Save.Instance.getStats("Speed");
+        }
+        if (Save.Instance.getStats("AtkSpeed") != null) {
+            AtkSpeed = Save.Instance.getStats("AtkSpeed");
+        }
+        if (Save.Instance.getStats("Health") != null) {
+            Health = Save.Instance.getStats("Health");
+        }
+    }
+
     public void TakeDamage(int damage) {
         currentHealth -= damage;
         if (currentHealth <= 0) {
