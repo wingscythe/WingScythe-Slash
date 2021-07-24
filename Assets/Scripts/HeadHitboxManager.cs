@@ -23,7 +23,7 @@ public class HeadHitboxManager : MonoBehaviour {
             EnemyController controller = col.gameObject.GetComponentInParent<EnemyController>();
 
             if (controller && PlayerController.Instance.isAttacking) {
-                controller.headHit(PlayerController.Instance.strength);
+                controller.headHit(PlayerController.Instance.stats.getStrength());
             }
         } else {
             EnemyController controller = GetComponentInParent<EnemyController>();

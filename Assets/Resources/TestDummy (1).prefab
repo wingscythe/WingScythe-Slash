@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliders:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2243065659429520448, guid: 800a0f9485d33a74d8256084a39efbc0, type: 3}
+  - {fileID: 1936255231033677992, guid: 84a19866a14a9c7438ed7eabae2a3041, type: 3}
+  - {fileID: 2124544876734478599, guid: 43f6a370f4d47fa4d8ae3ca27e10a866, type: 3}
   isEnemy: 1

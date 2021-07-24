@@ -8,6 +8,7 @@ public class UpgradeAtkSpeed : ShopManager {
     private PlayerGold player;
     private PlayerStat stat;
     public GameObject stick;
+
     private int cost = 100;
     public UpgradeAtkSpeed() {
         this.upgrades = 0;
@@ -16,9 +17,8 @@ public class UpgradeAtkSpeed : ShopManager {
 
     //increases atkspeed in animator, change stats later
     public void AtkSpeedUp() {
-        Debug.Log("Button pressed");
         if (player.showGold() < cost) {
-            if (!maxUpgrades(max)) return;
+            if (maxUpgrades(max)) return;
             this.GetComponentInChildren<Text>().text = "NOT ENOUGH GOLD";
             return;
         } else {
@@ -28,7 +28,6 @@ public class UpgradeAtkSpeed : ShopManager {
             player.minusGold(new Gold(cost));
             increaseCost();
             if (maxUpgrades(max)) {
-                Debug.Log("MAX UPGRADES MADE");
                 this.GetComponentInChildren<Text>().text = "MAX UPGRADES";
             }
         }
