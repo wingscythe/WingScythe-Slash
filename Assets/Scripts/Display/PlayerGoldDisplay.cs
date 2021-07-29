@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerGoldDisplay : MonoBehaviour
-{
+public class PlayerGoldDisplay : MonoBehaviour {
     private PlayerGold gold;
     private Text goldDisplay;
     private void Awake() {
@@ -13,6 +12,6 @@ public class PlayerGoldDisplay : MonoBehaviour
     }
 
     void Update() {
-        goldDisplay.text = "Gold: " + gold.showGold();    
+        goldDisplay.text = "" + gold.showGold();
     }
 }
