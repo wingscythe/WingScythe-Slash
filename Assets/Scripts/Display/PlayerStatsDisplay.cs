@@ -15,6 +15,6 @@ public class PlayerStatsDisplay : MonoBehaviour {
         Strength.text = "Strength: " + stats.getStrength().ToString();
         //Speed.text = "Speed: " + stats.getSpeed().ToString();
         AtkSpeed.text = "Attack Speed: " + stats.getAtkSpeed().ToString();
-        Health.text = "Health: " + stats.getHealth().ToString() + "/" + stats.maxHealth.ToString();
+        Health.text = "Health: " + stats.getHealth().ToString() + "/" + stats.MaxHealth.getValue().ToString();
     }
 }

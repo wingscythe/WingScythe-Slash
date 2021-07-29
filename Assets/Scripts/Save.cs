@@ -56,6 +56,7 @@ public class Save : MonoBehaviour {
         setStat(stats.Speed, "Speed");
         setStat(stats.AtkSpeed, "AtkSpeed");
         setStat(stats.Health, "Health");
+        setStat(stats.MaxHealth, "MaxHealth");
     }
 
     void setStat(Stat stat, string name) {

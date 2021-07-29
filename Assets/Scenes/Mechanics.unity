@@ -943,7 +943,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b24eb97f858e0c64c9abd2430b41e461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
   Strength:
     baseValue: 1
   Speed:
@@ -951,7 +950,9 @@ MonoBehaviour:
   AtkSpeed:
     baseValue: 1
   Health:
-    baseValue: 10
+    baseValue: 100
+  MaxHealth:
+    baseValue: 100
 --- !u!1 &1389430791
 GameObject:
   m_ObjectHideFlags: 0

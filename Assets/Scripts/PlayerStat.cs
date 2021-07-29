@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStat : MonoBehaviour {
-    public int maxHealth = 100;
-    public int currentHealth;
     public Stat Strength;
     public Stat Speed;
     public Stat AtkSpeed; //TODO: change attack speed to divide by 10 to make it a float
     public Stat Health;
+    public Stat MaxHealth;
 
     void Start() {
         //Get saved PlayerStat if relevant
@@ -24,9 +23,9 @@ public class PlayerStat : MonoBehaviour {
         if (Save.Instance.getStats("Health") != null) {
             Health = Save.Instance.getStats("Health");
         }
-    }
-    public void Awake() {
-        currentHealth = maxHealth;
+        if (Save.Instance.getStats("MaxHealth") != null) {
+            MaxHealth = Save.Instance.getStats("MaxHealth");
+        }
     }
 
     public int getSpeed() {
@@ -46,8 +45,7 @@ public class PlayerStat : MonoBehaviour {
         return Speed.SetValue(_speed);
     }
     public int setHealth(int _health) {
-        currentHealth += _health;
-        return maxHealth += _health;
+        return Health.SetValue(_health);
     }
     public double setAtkSpeed(int _atkspeed) {
         return AtkSpeed.SetValue(_atkspeed);
