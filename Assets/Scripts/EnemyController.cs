@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour {
     public float health = 1;
     public Gold gold;
     public Animator animator;
-    public float strength = 1;
+    public int strength = 1;
 
     void Start() {
         gold = GetComponent<Gold>();

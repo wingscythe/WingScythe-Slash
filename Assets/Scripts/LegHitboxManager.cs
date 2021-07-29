@@ -23,7 +23,7 @@ public class LegHitboxManager : MonoBehaviour {
             EnemyController controller = col.gameObject.GetComponentInParent<EnemyController>();
 
             if (controller) {
-                controller.legHit(PlayerController.Instance.strength);
+                controller.legHit(PlayerController.Instance.stats.getStrength());
             }
         } else {
             EnemyController controller = GetComponentInParent<EnemyController>();

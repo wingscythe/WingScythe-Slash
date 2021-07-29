@@ -19,7 +19,7 @@ public class SimplePathFinder : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         if (!target) {
-            Destroy(this);
+            target = PlayerController.Instance.gameObject;
         }
     }
 

@@ -19,12 +19,13 @@ public class PlayerController : MonoBehaviour {
     public float distance = 0;
     public float distancer = 0;
 
+    [Header("Utility")]
+    public PlayerGold playerGold;
+    public PlayerStat playerStats;
+
     //TODO: Merge with Player Stats for better modularity. Must also change supporting scripts, such as HitBoxController, and have a PlayerStat instance.
     [Header("Stats")]
-    [SerializeField]
-    private float speed = 10.0f;
-    public float health = 100f;
-    public float strength = 1f;
+    public PlayerStat stats;
 
     private void Awake() {
         Instance = this;
@@ -57,7 +58,6 @@ public class PlayerController : MonoBehaviour {
         if (!facingRight && moveInput > 0) {
             Flip();
             Reset();
-            Debug.Log(moveInput);
         } else if (facingRight && moveInput < 0) {
             Flip();
             Reset();
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour {
                 animator.SetBool("isWalking", false);
             }
 
-            velocity = speed * moveInput;
+            velocity = stats.getSpeed() * moveInput;
             rb.velocity = new Vector2(velocity, 0);
             animator.SetFloat("Velocity", velocity);
         } else {
@@ -118,11 +118,11 @@ public class PlayerController : MonoBehaviour {
     public void Dash() {
         if (left && !facingRight && distance > .2f) {
             if (left != right) {
-                this.transform.position = left.transform.position + new Vector3(0.5f, 0, 0);
+                this.transform.position = new Vector3(left.transform.position.x + 0.5f, transform.position.y, 0);
             }
         } else if (right && facingRight && distancer > .2f) {
             if (left != right) {
-                this.transform.position = right.transform.position - new Vector3(0.5f, 0, 0);
+                this.transform.position = new Vector3(right.transform.position.x - 0.5f, transform.position.y, 0);
             }
         }
     }
@@ -132,41 +132,27 @@ public class PlayerController : MonoBehaviour {
         isAttacking = false;
     }
 
-    public void headHit(float damage) {
+    public void headHit(int damage) {
         //Play head hit animation
         animator.Play("headhit");
 
         //Decrease health
-        takeDamage(damage);
+        stats.takeDamage(damage);
     }
 
-    public void legHit(float damage) {
+    public void legHit(int damage) {
         //Play head hit animation
         animator.Play("headhit");
 
         //Decrease health
-        takeDamage(damage);
+        stats.takeDamage(damage);
     }
 
-    public void bodyHit(float damage) {
+    public void bodyHit(int damage) {
         //Play head hit animation
         animator.Play("headhit");
 
         //Decrease health
-        takeDamage(damage);
-    }
-
-    public void takeDamage(float damage) {
-        health -= damage;
-        //check if dead
-
-        if (health <= 0) {
-            Debug.Log("Player Killed");
-
-            //TODO: Death logic
-
-            //Edit this with death animation length
-            Destroy(gameObject);
-        }
+        stats.takeDamage(damage);
     }
 }

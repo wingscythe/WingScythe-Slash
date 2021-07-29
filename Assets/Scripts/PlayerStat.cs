@@ -3,41 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStat : MonoBehaviour {
-    public int maxHealth = 10;
-    public int currentHealth { get; private set; }
+    public int maxHealth = 100;
+    public int currentHealth;
     public Stat Strength;
     public Stat Speed;
-    public Stat AtkSpeed;
+    public Stat AtkSpeed; //TODO: change attack speed to divide by 10 to make it a float
     public Stat Health;
-    void Awake() {
-        currentHealth = maxHealth;
-    }
-    public void TakeDamage(int damage) {
-        currentHealth -= damage;
-        if (currentHealth <= 0) {
-            // death
+
+    void Start() {
+        //Get saved PlayerStat if relevant
+        if (Save.Instance.getStats("Strength") != null) {
+            Strength = Save.Instance.getStats("Strength");
         }
+        if (Save.Instance.getStats("Speed") != null) {
+            Speed = Save.Instance.getStats("Speed");
+        }
+        if (Save.Instance.getStats("AtkSpeed") != null) {
+            AtkSpeed = Save.Instance.getStats("AtkSpeed");
+        }
+        if (Save.Instance.getStats("Health") != null) {
+            Health = Save.Instance.getStats("Health");
+        }
+    }
+    public void Awake() {
+        currentHealth = maxHealth;
     }
 
     public int getSpeed() {
         return Speed.getValue();
     }
     public int getHealth() {
-        return currentHealth;
+        return Health.getValue();
     }
     public double getAtkSpeed() {
-        return AtkSpeed.getValue();
+        return this.GetComponent<Animator>().GetFloat("atkspd");
     }
     public int getStrength() {
         return Strength.getValue();
-
     }
     //setting/changing stats
     public int setSpeed(int _speed) {
         return Speed.SetValue(_speed);
     }
     public int setHealth(int _health) {
-        return Health.SetValue(_health);
+        currentHealth += _health;
+        return maxHealth += _health;
     }
     public double setAtkSpeed(int _atkspeed) {
         return AtkSpeed.SetValue(_atkspeed);
@@ -45,5 +55,20 @@ public class PlayerStat : MonoBehaviour {
     public int setStrength(int _strength) {
         return Strength.SetValue(_strength);
 
+    }
+
+    public void takeDamage(int damage) {
+        int health = getHealth() - damage;
+        setHealth(health);
+        //check if dead
+
+        if (health <= 0) {
+            Debug.Log("Player Killed");
+
+            //TODO: Death logic
+
+            //Edit this with death animation length
+            Destroy(gameObject);
+        }
     }
 }
