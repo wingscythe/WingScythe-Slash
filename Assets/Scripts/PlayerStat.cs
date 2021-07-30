@@ -34,6 +34,10 @@ public class PlayerStat : MonoBehaviour {
     public int getHealth() {
         return Health.getValue();
     }
+
+    public int getMaxHealth() {
+        return MaxHealth.getValue();
+    }
     public double getAtkSpeed() {
         return this.GetComponent<Animator>().GetFloat("atkspd");
     }
@@ -43,6 +47,9 @@ public class PlayerStat : MonoBehaviour {
     //setting/changing stats
     public int setSpeed(int _speed) {
         return Speed.SetValue(_speed);
+    }
+    public int setMaxHealth(int _health) {
+        return MaxHealth.SetValue(_health);
     }
     public int setHealth(int _health) {
         return Health.SetValue(_health);
