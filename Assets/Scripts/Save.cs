@@ -70,7 +70,8 @@ public class Save : MonoBehaviour {
 
     public static void SaveGameData(GameManager manager, DateTime lastLoginTime) {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/GameData.wingscythe";
+        string path = "./Assets/Resources/Saves/GameData.wingscythe";
+        // string path = Application.persistentDataPath + "/GameData.wingscythe";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         GameData data = new GameData(manager, lastLoginTime);
@@ -80,7 +81,8 @@ public class Save : MonoBehaviour {
     }
 
     public static GameData LoadGameData() {
-        string path = Application.persistentDataPath + "/GameData.wingscythe";
+        string path = "./Assets/Resources/Saves/GameData.wingscythe";
+        // string path = Application.persistentDataPath + "/GameData.wingscythe";
         if (File.Exists(path)) {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
