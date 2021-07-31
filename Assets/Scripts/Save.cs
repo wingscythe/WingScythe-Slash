@@ -67,4 +67,32 @@ public class Save : MonoBehaviour {
     void setGold(PlayerGold playerGold) {
         setStat(playerGold.gold, "Gold");
     }
+
+    public static void SaveGameData(GameManager manager, DateTime lastLoginTime) {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/GameData.wingscythe";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        GameData data = new GameData(manager, lastLoginTime);
+
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
+    public static GameData LoadGameData() {
+        string path = Application.persistentDataPath + "/GameData.wingscythe";
+        if (File.Exists(path)) {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            GameData data = formatter.Deserialize(stream) as GameData;
+
+            stream.Close();
+
+            return data;
+        } else {
+            Debug.LogError("Save file does not exist in " + path);
+            return null;
+        }
+    }
 }
