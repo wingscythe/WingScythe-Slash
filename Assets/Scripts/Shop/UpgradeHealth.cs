@@ -22,6 +22,7 @@ public class UpgradeHealth : ShopManager {
             return;
         } else {
             stat.setHealth(stat.Health.getValue() + 50);
+            stat.setMaxHealth(stat.MaxHealth.getValue() + 50);
             player.minusGold(new Gold(cost));
             increaseCost();
             if (maxUpgrades(max)) {
