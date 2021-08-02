@@ -35,7 +35,22 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         Attack();
         lastInput = moveInput;
-        if (Input.touchCount > 0) {
+        if(Input.touchCount > 1){
+            var firstTouch = Input.GetTouch(0);
+            var secondTouch = Input.GetTouch(1);
+            //Checks which finger is placed down first
+            if(firstTouch.position.x > Screen.width / 2 && secondTouch.position.x <= Screen.width / 2){
+                isBlocking = true;
+                isAttacking = false;
+            }
+            else if(firstTouch.position.x <= Screen.width / 2 && secondTouch.position.x > Screen.width / 2){
+                isBlocking = true;
+                isAttacking = false;
+            }else{
+                isBlocking = false;
+            }
+        } //Blocks and doesn't change position
+        else if (Input.touchCount > 0) {
             var touch = Input.GetTouch(0);
             if (touch.position.x < Screen.width / 2) {
                 //Left click
@@ -44,15 +59,7 @@ public class PlayerController : MonoBehaviour {
                 //Right click
                 moveInput = 1;
             }
-            if (touch.position.y > Screen.height / 2) {
-                //upper click
-                isBlocking = true;
-                isAttacking = false;
-            } else {
-                isBlocking = false;
-            }
         } else {
-            isBlocking = false;
             moveInput = 0;
         }
         if (!facingRight && moveInput > 0) {
