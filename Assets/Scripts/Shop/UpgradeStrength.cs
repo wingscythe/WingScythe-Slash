@@ -16,7 +16,10 @@ public class UpgradeStrength : ShopManager {
     }
     public void StrengthUp() {
         if (player.showGold() < cost) {
-            if (maxUpgrades(max)) return;
+            if (maxUpgrades(max)) {
+                this.GetComponent<Button>().interactable = false;
+                return;
+            }
             this.GetComponentInChildren<Text>().text = "NOT ENOUGH GOLD";
             return;
         } else {
@@ -26,6 +29,7 @@ public class UpgradeStrength : ShopManager {
             increaseCost();
             if (maxUpgrades(max)) {
                 this.GetComponentInChildren<Text>().text = "MAX UPGRADES";
+                this.GetComponent<Button>().interactable = false;
             }
         }
     }

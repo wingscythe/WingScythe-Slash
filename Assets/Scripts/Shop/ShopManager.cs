@@ -18,13 +18,6 @@ public class ShopManager : MonoBehaviour {
         if (Panel != null) {
             bool open = Panel.activeSelf;
             Panel.SetActive(!open);
-            if (this.GetComponentInChildren<Text>().tag == "Gold" && open) {
-                Debug.Log("FOUND");
-                this.GetComponentInChildren<Text>().color = Color.black;
-            } else {
-                this.GetComponentInChildren<Text>().color = Color.white;
-            }
-            //if (Panel.GetComponentInChildren<Text>().tag == "Gold" && !open) gameObject.GetComponent<Text>().color = Color.black;
         }
     }
 
