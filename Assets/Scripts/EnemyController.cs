@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour {
     public Gold gold;
     public Animator animator;
     public int strength = 1;
+    public int hi = 1;
+    
 
     void Start() {
         gold = GetComponent<Gold>();
